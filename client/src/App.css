@@ -1,0 +1,229 @@
+:root {
+  --bg : #E6ECFE;
+  --white : #FAFBFF;
+  --gray : #707C97;
+  --dark-blue : #0D1C2E;
+  --blue : #2A8BF2;
+  --pink : #FF3366;
+
+}
+.App {
+  margin: 0;
+  background: linear-gradient(#F3F3FB, #FDFBFD);
+  min-height: 100vh;
+}
+
+.bg-transwhiten{
+  background: var(--bg);
+}
+.bg-lwhite {
+  background: var(--white);
+}
+.text-lwhite {
+  color: var(--white);
+}
+
+.bg-pink {
+  background: var(--pink);
+}
+.bg-gray {
+  background: var(--gray);
+}
+
+.text-gray {
+  color: var(--gray);
+}
+
+.text-darkblue {
+  color: var(--dark-blue);
+}
+
+.bg-blue {
+  background: var(--blue);
+}
+.text-blue {
+  color: var(--blue);
+}
+
+.border-gray {
+  border: 1px solid #707c976b;
+}
+.size-1{
+  font-size: 30px;
+}
+.size-2{
+  font-size: 24px;
+}
+.size-3{
+  font-size: 18px;
+}
+.size-4{
+  font-size: 16px;
+}
+.size-5{
+  font-size: 14px;
+}
+.size-6{
+  font-size: 12px;
+}
+
+.size-7{
+  font-size: 10px;
+}
+
+.shadow-2 {
+  box-shadow: 0px 0px 22px -6px var(--gray);
+}
+
+.shadow-1 {
+  box-shadow: 0px 0px 24px -8px #dadada;
+}
+
+.blue-grad {
+  background: linear-gradient(90deg, rgba(124,184,247,1) 0%, rgba(42,139,242,1) 100%);
+}
+
+.pic {
+  width: 45px;
+  height: 45px;
+}
+.pic-container {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.last-msg {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.person {
+  cursor: pointer;
+}
+
+.persons {
+  margin: 0;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.persons::-webkit-scrollbar, .chat-body::-webkit-scrollbar {
+  width: 5px;
+}
+ 
+.persons::-webkit-scrollbar-track, .chat-body::-webkit-scrollbar-track {
+  box-shadow:none
+}
+ 
+.persons::-webkit-scrollbar-thumb, .chat-body::-webkit-scrollbar-thumb {
+  background-color: #B7BDCB;
+  outline: none;
+  border-radius: 8px;
+}
+
+/* modal  */
+.modal-body::-webkit-scrollbar {
+  width: 5px;
+}
+ 
+.modal-body::-webkit-scrollbar-track {
+  box-shadow:none
+}
+ 
+.modal-body::-webkit-scrollbar-thumb {
+  background-color: #B7BDCB;
+  outline: none;
+  border-radius: 8px;
+}
+
+.indication {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+.chat-home {
+  height: 95vh;
+}
+
+.chat-body {
+  margin: 0;
+  height: 70vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-item {
+  max-width: 80%;
+  width: fit-content;
+  border-radius: 4px;
+}
+.message {
+  border-radius: 8px;
+  margin: 2px;
+}
+
+.me{
+  align-self: end;
+}
+.other {
+  align-self: start;
+}
+.me .message{
+  border-bottom-right-radius: 0;
+  border: 1px solid rgba(112,124,151,0.25);
+}
+.other .message{
+  border-top-left-radius: 0;
+}
+  
+.time {
+  
+}
+.pointer {
+  cursor: pointer;
+}
+.infoSide {
+  margin: 0;
+  padding: 4px;
+  min-width: 40px;
+  max-width: 220px;
+  width: 50px;
+  background: var(--white);
+
+  transition: all 0.3s ;
+}
+.expand {
+  width: 160px;
+}
+
+.info {
+  display: none;
+}
+.logout {
+  display: none;
+  height: 30px;
+  background-color: transparent;
+  border: 1px solid gray;
+  padding: 2px 8px;
+  border-radius: 4px;
+  transition: display 0.25s;
+}
+
+.logout:hover {
+  border: 1px solid var(--blue);
+  color: var(--blue);
+}
+.expand .info , .expand .logout {
+  display: inline;
+}
