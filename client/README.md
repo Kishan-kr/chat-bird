@@ -31,5 +31,11 @@ Start the client by running npm start in the client directory.
 * react-router-dom
 * react-scroll-to-bottom
 
+## Upcoming Features
++ User can send images and videos
++ Show online status
++ Show last seen status
++ Create groups 
+
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
