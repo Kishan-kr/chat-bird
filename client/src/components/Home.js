@@ -7,13 +7,7 @@ function Home() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(loggedIn) {
       navigate('/user', {replace: true});
-    }
-    else {
-      navigate('/login', {replace: true});
-    }
-  
   }, [loggedIn])
 
   return (

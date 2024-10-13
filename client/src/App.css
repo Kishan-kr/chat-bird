@@ -5,6 +5,7 @@
   --dark-blue : #0D1C2E;
   --blue : #2A8BF2;
   --pink : #FF3366;
+  --green : #329F5B;
 
 }
 .App {
@@ -43,6 +44,9 @@
 }
 .text-blue {
   color: var(--blue);
+}
+.text-green {
+  color: var(--green);
 }
 
 .border-gray {
@@ -158,7 +162,7 @@
   margin: 0;
   height: 70vh;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
 }
@@ -187,9 +191,9 @@
   border-top-left-radius: 0;
 }
   
-.time {
+/* .time {
   
-}
+} */
 .pointer {
   cursor: pointer;
 }
@@ -204,7 +208,7 @@
   transition: all 0.3s ;
 }
 .expand {
-  width: 160px;
+  width: 200px;
 }
 
 .info {

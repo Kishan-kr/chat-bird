@@ -8,7 +8,11 @@ function ChatBody({chatId}) {
   const { getAllMessage, messageList } = useContext(MessageContext);
   const chatEnd = useRef();
   
-  const scrollBottom = ()=> {chatEnd.current?.scrollIntoView({ block: 'start', behavior: 'smooth' });}
+  const scrollBottom = () => {
+    const chatBody = document.querySelector('.chat-body');
+    chatBody.scrollTop = chatBody.scrollHeight;
+  }
+
   useEffect(() => {
     let token = localStorage.getItem('token');
     getAllMessage(token, chatId);
@@ -17,7 +21,6 @@ function ChatBody({chatId}) {
 
   useEffect(()=> {
     scrollBottom();
-    // eslint-disable-next-line
   }, [messageList])
   
   return (

@@ -1,10 +1,11 @@
 import React,{ createContext, useState } from "react"; 
 
 export const MessageContext = createContext();
+const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
 function MessageMethods(props) {
     const [messageList, setMessageList] = useState([]);
-    const url = process.env.REACT_APP_API_URL || "http://localhost:3001/api/messages/" ;
+    const url = `${baseUrl}/api/messages/`;
 
     // Fetch request to add a message in a chat
     const addMessage = async (token, chat, data) => {

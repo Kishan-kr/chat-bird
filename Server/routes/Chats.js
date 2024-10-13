@@ -149,7 +149,7 @@ Router.get('/members/:chatId', fetchUser, async (req, res) => {
         }
 
         success = true;
-        res.status(200).json({ success, members });
+        res.status(200).json({ success, members: chat.members });
     } catch (error) {
         console.log(error);
         res.status(500).json({ success: false, error: 'Internal Server Error' });

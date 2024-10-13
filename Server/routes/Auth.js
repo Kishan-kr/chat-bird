@@ -169,6 +169,7 @@ Router.get('/isloggedin', fetchUser, (req, res) => {
         // If fetchUser middleware executes successfully, user is authenticated
         res.status(200).json({ success: true, message: "User is logged in" });
     } catch (error) {
+        console.error(error)
         res.status(401).json({ success: false, message: "User is not authenticated" });
     }
 });

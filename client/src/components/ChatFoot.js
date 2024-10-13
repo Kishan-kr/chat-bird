@@ -7,7 +7,7 @@ function ChatFoot(props) {
     const { socket, chatId } = props;
     const [text, setText] = useState('');
     const { addMessage, messageList, setMessageList } = useContext(MessageContext);
-    const { openedChatId, accessAllChat } = useContext(ChatContext);
+    const { accessAllChat } = useContext(ChatContext);
 
     // const writeMessage = (e)=>{
     //     setText(e.target.value);

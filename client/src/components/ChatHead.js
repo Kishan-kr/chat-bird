@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { ChatContext } from '../context/ChatContext';
+import { getRelativeTime } from '../utils/timeFormats';
 
 function ChatHead() {
     const { chatPerson } = useContext(ChatContext);
@@ -13,7 +14,9 @@ function ChatHead() {
                 </div>
                 <div className="col d-flex flex-column justify-content-center align-item-center ">
                     <p className=" size-5 fw-semibold text-darkblue my-0">{chatPerson.name}</p>
-                    <p className=" size-7 text-blue my-0">{chatPerson.email /*last online*/}</p>
+                    {chatPerson.online ? <p className=" size-7 fw-semibold text-green my-0">online</p> :
+                    <p className=" size-7 text-gray my-0">active {getRelativeTime(chatPerson.lastOnline)} ago</p>
+                    }
                 </div>
                 
                 <div className="col-1 mx-2 rounded-circle bg-white pic-container shadow-1">

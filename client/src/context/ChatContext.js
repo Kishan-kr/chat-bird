@@ -1,13 +1,14 @@
 import React, { createContext, useState } from "react";
 
 export const ChatContext = createContext();
+const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
 function ChatMethods(props) {
     const [chats, setChats] = useState([]);
     const [chatPerson, setChatPerson] = useState({})
     const [openedChatId, setOpenedChatId] = useState('')
 
-    const url = process.env.REACT_APP_API_URL || "http://localhost:3001/api/chats/"
+    const url = `${baseUrl}/api/chats/`;
     // fetch request to create or open a chat 
     const openChat = async (token, userId) => {
         try {

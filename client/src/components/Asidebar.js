@@ -69,7 +69,7 @@ function Asidebar(props) {
             </div>
             <div className="persons px-0">{
                 chats.map((chat) => {
-                    if(chat.members[0]?.name) 
+                    if(chat?.members[0]?.name) 
                     return (
                         <Person key={chat._id} 
                             member={chat.members[0]} 

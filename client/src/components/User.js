@@ -1,93 +1,89 @@
-import React, { useContext,useEffect, useRef } from 'react'
-import Asidebar from './Asidebar'
+import React, { useState, useEffect, useRef } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { Outlet, useNavigate } from 'react-router-dom';
-import About from './About';
-import io from 'socket.io-client';
 import { ChatContext } from '../context/ChatContext';
 import { MessageContext } from '../context/MessageContext';
+import { Outlet, useNavigate } from 'react-router-dom';
+import Asidebar from './Asidebar';
+import About from './About';
 import CreateNewChat from './CreateNewChat';
+import io from 'socket.io-client';
 
-const backend = 'http://localhost:3001';
-var socket;
-var chatCompare ;
+const backend = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
 function User() {
-  const {loggedIn, user, loading, setSocketConnected} = useContext(AuthContext);
+  const { user, setSocketConnected } = useContext(AuthContext);
   const { openedChatId, chats, setChats } = useContext(ChatContext);
-  const { messageList, setMessageList } = useContext(MessageContext);
-  const navigate = useNavigate();
-  const infoSide = useRef();
-  const newChatModal = useRef();
+  const { setMessageList } = useContext(MessageContext);
+  const [socket, setSocket] = useState(null);
+  const infoSide = useRef(null);
+  const newChatModal = useRef(null);
 
-  const openModal = (e)=>{
+  useEffect(() => {
+    const initSocket = async () => {
+      if (!socket && user?.id) { // Check if user.id is present
+        const socketInstance = io.connect(backend);
+        setSocket(socketInstance);
+        socketInstance.emit('setup', user); // Emit only if user.id is present
+        setSocketConnected(true);
+      }
+    };
+    initSocket();
+    return () => {
+      socket?.disconnect();
+    };
+  }, [backend, user, socket, setSocketConnected]);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on('received', (message) => {
+        if (message.chat._id !== openedChatId) {
+          const updateChat = (chats) => {
+            const chatToUpdate = chats.find((chat) => chat._id === message.chat._id);
+            if (chatToUpdate) {
+              chatToUpdate.lastMessage = message;
+              setChats([chatToUpdate, ...chats.filter((chat) => chat._id !== message.chat._id)]);
+            }
+          };
+          updateChat(chats);
+        } else {
+          setMessageList((prevList) => [...prevList, message]);
+        }
+      });
+    }
+    return () => {
+      socket?.off('received');
+    };
+  }, [socket, openedChatId, chats, setMessageList]);
+
+  const openModal = (e) => {
     e.preventDefault();
     newChatModal.current.click();
-  }
-
-  useEffect(()=> {
-    chatCompare = openedChatId;
-  },[openedChatId])
-
-  useEffect(() => {
-    if(!loading && !loggedIn)  {
-      navigate('/login', {replace: true});
-    }
-    // eslint-disable-next-line
-  }, [loggedIn])
-
-  // connecting socket to the backend 
-  useEffect(()=> {
-    socket = io.connect(backend);
-    socket.emit('setup', user);
-    socket.on('connected', ()=>{
-      setSocketConnected(true);
-    })
-    // eslint-disable-next-line
-  }, [socket])
-
-  useEffect(() => {
-    socket.on('received', (message) => {
-        if(message.chat._id !== chatCompare) {
-          var chatToUpdate, pos;
-          const slicePos = ()=>{
-            for(let i=0; i<chats.length; i++) {
-              if (chats[i]._id === message.chat._id) {
-                chatToUpdate = {...chats[i], lastMessage: message,};
-                return i;
-              }
-            }
-          }
-          pos = slicePos();
-          const newChats = [
-            chatToUpdate, ...chats.slice(0, pos), ...chats.slice(pos+1)
-          ]
-          setChats(newChats);
-        }
-        else {
-          setMessageList([...messageList, message]);
-        }
-    })
-    // eslint-disable-next-line
-  }, [socket])
+  };
 
   return (
-    <div className='row px-1'>
-        <div ref={infoSide} className="infoSide shadow-1">
-            <About infoSide = {infoSide}/>
-        </div>
-        <div className="col-3">
-            <Asidebar openModal={openModal}/>
-        </div>
-        <div className="col">
-          <Outlet context={[socket]}/>
-        </div>
-        <button type="button" ref={newChatModal} className="btn d-none" data-bs-toggle="modal" data-bs-target="#createNewChat">
-                create new chat
-        </button>
-        <CreateNewChat/>
+    <div className="row px-1">
+      <div ref={infoSide} className="infoSide shadow-1">
+        <About infoSide={infoSide} socket={socket} />
+      </div>
+      <div className="col-3">
+        <Asidebar openModal={openModal} />
+      </div>
+      <div className="col">
+        <Outlet context={[socket]} />
+      </div>
+      <button
+        type="button"
+        ref={newChatModal}
+        className="btn d-none"
+        data-bs-toggle="modal"
+        data-bs-target="#createNewChat"
+      >
+        Create new chat
+      </button>
+      <CreateNewChat />
     </div>
-  )
+  );
 }
 
 export default User;

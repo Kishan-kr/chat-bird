@@ -1,12 +1,13 @@
 
-import React, { useState, createContext, useEffect } from "react";
+import React, { useState, createContext } from "react";
 export const AuthContext = createContext();
+const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
 function AuthState(props) {
-    const url = process.env.REACT_APP_API_URL || 'http://localhost:3001/api/auth';
+    const url = `${baseUrl}/api/auth`;
 
     const [loggedIn, setLoggedIn] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [user, setUser] = useState({ id: '', name: '', email: '', pic: '' });
     const [alert, setAlert] = useState({ isOn: false, type: 'success', msg: 'Done' });
     const [socketConnected, setSocketConnected] = useState(false);
@@ -97,45 +98,10 @@ function AuthState(props) {
         }
     }
 
-    // 5 Method to check if user is logged in
-    const checkLoginStatus = async (token) => {
-        const requestOptions = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'token': token
-            }
-        };
-        try {
-            const response = await fetch(`${url}/isloggedin`, requestOptions);
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            console.log(error);
-            return { success: false, error: 'Failed to check login status' };
-        }
-    };
-
-    useEffect(() => {
-        if (localStorage.getItem('token')) {
-            setLoading(true)
-            let token = localStorage.getItem('token');
-            checkLoginStatus(token).then((data) => {
-                if (data.success) {
-                    setLoggedIn(true);
-                    fetchUser(token); 
-                } else {
-                    setLoggedIn(false);
-                }
-                setLoading(false)
-            });
-        }
-    }, []);
-
     return (
         <AuthContext.Provider
             value={{
-                signUp, login, user, fetchUser, loggedIn, setLoggedIn, alert, setAlert, socketConnected, setSocketConnected, searchUser
+                signUp, login, user, fetchUser, loggedIn, setLoggedIn, alert, setAlert, socketConnected, setSocketConnected, searchUser, loading, setLoading
             }}
         >
             {props.children}

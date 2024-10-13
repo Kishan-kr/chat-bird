@@ -8,9 +8,11 @@ function Person(props) {
   const [time, setTime] = useState('');
   const navigate = useNavigate();
   
-  const formatTime = () => {
+  const formatTime = (timestamp) => {
+    if(!timestamp) return ''
     var tm;
-    let date = new Date(lastMessage.createdAt)
+    // let date = new Date(lastMessage.createdAt)
+    let date = new Date(timestamp)
     var currentDate = new Date();
     let year = currentDate.getFullYear();
     let month = currentDate.getMonth();
@@ -39,7 +41,7 @@ function Person(props) {
       })
     }
     
-    setTime(tm);
+    return tm
   }
 
   const handlePerson = () => {
@@ -49,10 +51,10 @@ function Person(props) {
     // more work...
   }
 
-  useEffect(()=>{
-    formatTime();
-    // eslint-disable-next-line
-  },[lastMessage])
+  // useEffect(()=>{
+  //   formatTime();
+  //   // eslint-disable-next-line
+  // },[lastMessage])
 
   return (
     <div 
@@ -69,7 +71,7 @@ function Person(props) {
           <p className=" size-5 fw-semibold text-darkblue my-0">{member?.name}</p>
           <p className=" size-7 text-blue my-0">{member?.email /* typing...*/}</p>
         </div>
-        <p className="col-3 size-7 text-end px-1">{lastMessage?time:' '}</p>
+        <p className="col-3 size-7 text-end px-1">{formatTime(lastMessage?.createdAt)}</p>
       </div>
       <div className="row p-1 mb-1">
         <p className="col size-6 m-0 p-0 px-1 last-msg">{lastMessage.data}</p>

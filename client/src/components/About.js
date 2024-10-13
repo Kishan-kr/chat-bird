@@ -31,6 +31,7 @@ function About(props) {
     const logout = () => {
       localStorage.removeItem('token');
       setLoggedIn(false)
+      props.socket?.emit('disconnect')
       navigate('/login', {replace: true});
     }
 

@@ -17,7 +17,10 @@ const userSchema = new mongoose.Schema({
     pic : {
         type : String,
         default : "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
-    }
+    },
+    online: { type: Boolean, default: false },
+    lastOnline: {type: Date, default: Date.now}
+
 }, {timestamps : true});
 
 const User = mongoose.model("User", userSchema);

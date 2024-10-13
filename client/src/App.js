@@ -7,6 +7,7 @@ import Alert from './components/Alert';
 import Home from './components/Home';
 import ChatHome from './components/ChatHome';
 import ChatBox from './components/ChatBox';
+import Protected from './components/Protected';
 
 function App() {
 
@@ -18,7 +19,7 @@ function App() {
         <Routes>
           <Route path='/signup' element={<SignUp />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/user' element={<User />} >
+          <Route path='/user' element={<Protected><User /></Protected>} >
             <Route path='' element={<ChatHome/>} />
             <Route path='chat/:chatId' element={<ChatBox/>} />
           </Route>
