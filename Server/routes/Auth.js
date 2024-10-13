@@ -163,4 +163,15 @@ Router.get('/', fetchUser, async (req, res) => {
     }
 })
 
+// Endpoint to check if user is logged in
+Router.get('/isloggedin', fetchUser, (req, res) => {
+    try {
+        // If fetchUser middleware executes successfully, user is authenticated
+        res.status(200).json({ success: true, message: "User is logged in" });
+    } catch (error) {
+        res.status(401).json({ success: false, message: "User is not authenticated" });
+    }
+});
+
+
 module.exports = Router;

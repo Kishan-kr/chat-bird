@@ -13,7 +13,7 @@ var socket;
 var chatCompare ;
 
 function User() {
-  const {loggedIn, user, setSocketConnected} = useContext(AuthContext);
+  const {loggedIn, user, loading, setSocketConnected} = useContext(AuthContext);
   const { openedChatId, chats, setChats } = useContext(ChatContext);
   const { messageList, setMessageList } = useContext(MessageContext);
   const navigate = useNavigate();
@@ -30,8 +30,8 @@ function User() {
   },[openedChatId])
 
   useEffect(() => {
-    if(!loggedIn)  {
-      navigate('/signup', {replace: true});
+    if(!loading && !loggedIn)  {
+      navigate('/login', {replace: true});
     }
     // eslint-disable-next-line
   }, [loggedIn])

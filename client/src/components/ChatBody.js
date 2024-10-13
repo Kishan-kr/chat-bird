@@ -1,19 +1,19 @@
 import React, { useContext, useEffect, useRef } from 'react'
-import { ChatContext } from '../context/ChatContext';
+// import { ChatContext } from '../context/ChatContext';
 import { MessageContext } from '../context/MessageContext';
 import Message from './Message'
 
-function ChatBody() {
-  const { openedChatId } = useContext(ChatContext);
+function ChatBody({chatId}) {
+  // const { openedChatId } = useContext(ChatContext);
   const { getAllMessage, messageList } = useContext(MessageContext);
   const chatEnd = useRef();
   
   const scrollBottom = ()=> {chatEnd.current?.scrollIntoView({ block: 'start', behavior: 'smooth' });}
   useEffect(() => {
     let token = localStorage.getItem('token');
-    getAllMessage(token, openedChatId);
+    getAllMessage(token, chatId);
     // eslint-disable-next-line
-  }, [openedChatId])
+  }, [chatId])
 
   useEffect(()=> {
     scrollBottom();

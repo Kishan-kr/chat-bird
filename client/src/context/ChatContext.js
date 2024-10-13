@@ -7,11 +7,11 @@ function ChatMethods(props) {
     const [chatPerson, setChatPerson] = useState({})
     const [openedChatId, setOpenedChatId] = useState('')
 
-    const url = "http://localhost:3001/api/chats/"
+    const url = process.env.REACT_APP_API_URL || "http://localhost:3001/api/chats/"
     // fetch request to create or open a chat 
     const openChat = async (token, userId) => {
         try {
-            var response = await fetch(`${url}/access`, {
+            var response = await fetch(`${url}/open`, {
                 method : 'POST',
                 headers : {
                     'content-type' : 'application/json',
@@ -30,7 +30,7 @@ function ChatMethods(props) {
     // fetch request to access all chat 
     const accessAllChat = async (token) => {
         try {
-            var response = await fetch(`${url}/access`, {
+            var response = await fetch(`${url}/all`, {
                 method : 'GET',
                 headers : {
                     'content-type' : 'application/json',
@@ -73,9 +73,22 @@ function ChatMethods(props) {
             return {success : false, error};
         }
     }
+
+    const getChatMembers = async (chatId) => {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`/api/chats/members/${chatId}`, {
+            method: 'GET',
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await response.json();
+        if (data.success) {
+            setChatPerson(data.members[0]);
+        }
+    };
+
   return (
     <ChatContext.Provider value={{
-        chats, setChats, openChat, accessAllChat, chatPerson, setChatPerson, openedChatId, setOpenedChatId, searchChat
+        chats, setChats, openChat, accessAllChat, chatPerson, setChatPerson, openedChatId, setOpenedChatId, searchChat, getChatMembers
         }} >
         {props.children}
     </ChatContext.Provider>

@@ -43,9 +43,9 @@ function Person(props) {
   }
 
   const handlePerson = () => {
-    navigate('/user/chat', {replace : true});
+    navigate(`/user/chat/${chatId}`, {replace : true});
     setChatPerson(member);
-    setOpenedChatId(chatId);
+    // setOpenedChatId(chatId);
     // more work...
   }
 

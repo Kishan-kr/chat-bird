@@ -1,26 +1,38 @@
 import React, { useContext, useEffect } from 'react'
-import { ChatContext } from '../context/ChatContext';
-import { useOutletContext } from "react-router-dom";
+// import { ChatContext } from '../context/ChatContext';
+import { useOutletContext, useParams } from "react-router-dom";
 import ChatBody from './ChatBody';
 import ChatFoot from './ChatFoot';
 import ChatHead from './ChatHead';
+import { ChatContext } from '../context/ChatContext';
 
 function ChatBox() {
     const [socket] = useOutletContext();
-    const { openedChatId } = useContext(ChatContext);
+    const {chatPerson, setChatPerson, getChatMembers} = useContext(ChatContext)
+    const { chatId } = useParams();
 
-    // Emitting chat event to join a chat room 
     useEffect(() => {
-        socket.emit('chat', openedChatId);
+        if(!chatPerson) {
+            getChatMembers(chatId)
+        }
+
+        return () => {
+            setChatPerson(null)
+        }
         // eslint-disable-next-line
     }, [])
 
+    useEffect(() => {
+        socket?.emit('chat', chatId);
+        // eslint-disable-next-line
+    }, [socket])
+
     return (
         <div className='px-4'>
-            <ChatHead />
+            <ChatHead/>
             <hr className='text-gray mx-0 ' />
 
-            <ChatBody/>
+            <ChatBody chatId={chatId}/>
 
             <ChatFoot socket={socket}/>
         </div>

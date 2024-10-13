@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { ChatContext } from '../context/ChatContext';
 
-function ChatHead(props) {
+function ChatHead() {
     const { chatPerson } = useContext(ChatContext);
 
   return (

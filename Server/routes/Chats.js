@@ -3,7 +3,7 @@ const Chat = require('../models/Chat');
 const fetchUser = require('../middleware/fetchUser');
 
 // Endpoint to create one to one chat 
-Router.post('/access', fetchUser, async (req, res) => {
+Router.post('/open', fetchUser, async (req, res) => {
     const {userId} = req.body;
     const senderId = req.user.id;
     let success = false;
@@ -57,7 +57,7 @@ Router.post('/access', fetchUser, async (req, res) => {
 })
 
 // Endpoint to access all chat of a logged in user
-Router.get('/access', fetchUser, async (req, res) => {
+Router.get('/all', fetchUser, async (req, res) => {
     let success = false;
     userId = req.user.id;
     try {
@@ -79,10 +79,14 @@ Router.get('/access', fetchUser, async (req, res) => {
 
 // Endpoint to delete a chat 
 Router.delete('/delete/:id', (req, res) => {
+    if(!req.params.id) {
+        return res.status(400).json({success: false, error: 'Chat id is required'})
+    }
+
     Chat.findByIdAndDelete(req.params.id, (err, chat) => {
         let success = false;
         if(!chat) {
-            error = 'Requested chat not found';
+            let error = 'Requested chat not found';
             return res.status(404).json({success, error});
         }
         if(err) {
@@ -124,5 +128,35 @@ Router.get('/', fetchUser, async (req, res) => {
         res.status(500).json({success, error});
     }
 })
+
+// Endpoint to get chat members excluding the requesting user and groupAdmin
+Router.get('/members/:chatId', fetchUser, async (req, res) => {
+    const { chatId } = req.params;
+    const userId = req.user.id; // Get the requesting user's ID
+    let success = false;
+
+    try {
+        // Fetch the chat and exclude the groupAdmin and requesting user from members
+        const chat = await Chat.findById(chatId)
+            .populate({
+                path: 'members',
+                match: { _id: { $ne: userId } },
+                select: '-password'
+            });
+
+        if (!chat) {
+            return res.status(404).json({ success: false, error: 'Chat not found' });
+        }
+
+        success = true;
+        res.status(200).json({ success, members });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, error: 'Internal Server Error' });
+    }
+});
+
+
+
 
 module.exports = Router;

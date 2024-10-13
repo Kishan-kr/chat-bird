@@ -11,7 +11,7 @@ function Home() {
       navigate('/user', {replace: true});
     }
     else {
-      navigate('/signup', {replace: true});
+      navigate('/login', {replace: true});
     }
   
   }, [loggedIn])

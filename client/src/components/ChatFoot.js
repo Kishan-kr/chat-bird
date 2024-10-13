@@ -4,7 +4,7 @@ import { ChatContext } from '../context/ChatContext';
 import InputEmoji from "react-input-emoji";
 
 function ChatFoot(props) {
-    const { socket } = props;
+    const { socket, chatId } = props;
     const [text, setText] = useState('');
     const { addMessage, messageList, setMessageList } = useContext(MessageContext);
     const { openedChatId, accessAllChat } = useContext(ChatContext);
@@ -17,7 +17,7 @@ function ChatFoot(props) {
     const sendMessage = async (event) => {
         if((event.key === 'Enter' && text) || event._reactName === 'onClick') {
             const token = localStorage.getItem('token');
-            const {message} = await addMessage(token, openedChatId, text);
+            const {message} = await addMessage(token, chatId, text);
             socket.emit('new message', message);
             setMessageList([...messageList, message]);
             accessAllChat(token);
