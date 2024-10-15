@@ -18,7 +18,6 @@ Router.post('/add', fetchUser, async (req, res) => {
         return res.status(400).json({success, error})
     }
 
-    console.log('chat: ', chat)//test
     try {
         var message = await (await Message.create({
             data, sender, chat
@@ -32,7 +31,6 @@ Router.post('/add', fetchUser, async (req, res) => {
             lastMessage : message
         })
         success = true;
-        console.log('message: ', message)//test
         res.status(200).json({success, message});
         
     } catch (error) {

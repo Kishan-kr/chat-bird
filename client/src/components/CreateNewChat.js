@@ -118,7 +118,7 @@ const Person = ({userData}) => {
         <div className='my-2 px-2 rounded-2 text-gray bg-lwhite shadow-1'>
             <div className="row p-2">
                 <div className="col-2 rounded-circle pic-container">
-                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80" alt="dp"
+                    <img src={userData?.pic} alt="dp"
                         className='pic'
                     />
                 </div>
