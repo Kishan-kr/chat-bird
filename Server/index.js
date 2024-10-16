@@ -17,8 +17,7 @@ async function connectToMongoWithRetries() {
   let retries = 0;
   while (retries < maxRetries) {
     try {
-      await connectToMongo();
-      console.log('Connected to MongoDB');
+      connectToMongo();
       return;
     } catch (error) {
       console.error(`Error connecting to MongoDB: ${error.message}`);
@@ -35,7 +34,9 @@ const app = express();
 
 // Middlewares
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: process.env.CLIENT_URL || 'http://localhost:3000'
+}));
 
 // Create HTTP server
 const httpServer = http.createServer(app);
