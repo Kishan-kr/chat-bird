@@ -101,13 +101,13 @@ const Person = ({userData}) => {
         }
 
         if(result.existChat) {
-            navigate(`/user/chat/${result?.existChat?._id}`, {replace : true});
+            navigate(`/chat/${result?.existChat?._id}`, {replace : true});
             setChatPerson(result.existChat.members[0]);
             setOpenedChatId(result.existChat._id);
             return;
         }
 
-        navigate(`/user/chat/${result?.chat?._id}`, {replace : true});
+        navigate(`/chat/${result?.chat?._id}`, {replace : true});
         setChats([result.chat, ...chats]);
         setChatPerson(result.chat.members[0]);
         setOpenedChatId(result.chat._id);

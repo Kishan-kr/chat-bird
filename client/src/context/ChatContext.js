@@ -76,14 +76,21 @@ function ChatMethods(props) {
     }
 
     const getChatMembers = async (chatId) => {
-        const token = localStorage.getItem('token');
-        const response = await fetch(`/api/chats/members/${chatId}`, {
-            method: 'GET',
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
-        const data = await response.json();
-        if (data.success) {
-            setChatPerson(data.members[0]);
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${url}/members/${chatId}`, {
+                method: 'GET',
+                headers: { 
+                    'content-type' : 'application/json', 
+                    'token': token 
+                }
+            });
+            const data = await response.json();
+            if (data.success) {
+                setChatPerson(data.members[0]);
+            }
+        } catch (error) {
+            console.error(error)
         }
     };
 

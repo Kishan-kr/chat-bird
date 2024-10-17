@@ -6,6 +6,7 @@ function SignUp() {
 
     const {signUp, setLoggedIn, fetchUser, setAlert} = useContext(AuthContext);
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
     const [user, setUser] = useState({name:"", email:"", password:"", cPassword: ""});
     const [pic, setPic] = useState('');
     const [uploading, setUploading] = useState(false);
@@ -51,7 +52,10 @@ function SignUp() {
             return;
         }
         // POST request using fetch
+        setLoading(true);
         const data = await signUp(name, email, password, pic);
+        setLoading(false);
+
         if(data.success) {
             setLoggedIn(true);
             localStorage.setItem('token', data.token);
@@ -61,7 +65,7 @@ function SignUp() {
                 type : 'success',
                 msg : data.msg
             })
-            navigate('/user', {replace: true});
+            navigate('/', {replace: true});
             setUser({name:"", email:"", password:"", pic:""})
         }
         else if(data.serverError) {
@@ -120,8 +124,9 @@ function SignUp() {
                 <div className=" d-flex flex-column justify-content-center my-4 px-5 ">
                     <button type="submit" 
                         className="shadow-2 btn py-2 w-100 my-2 border-0 size-4 text-white blue-grad"
-                        disabled={uploading}>
-                            Sign Up
+                        disabled={uploading || loading}>
+                            {loading ?  <i className="fa fa-spinner fa-spin"></i> : 'Sign Up'}
+
                     </button>
                     <Link className='size-5 text-blue' to = "/login">Already have an account? Login</Link>
                 </div>

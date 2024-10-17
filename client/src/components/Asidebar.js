@@ -33,7 +33,7 @@ function Asidebar(props) {
     }, [])
 
     return (
-        <aside className='p-3'>
+        <aside className='p-3 h-100'>
             <div className='row px-1 my-2'>
                 <div className="row">
                     <h4 className="col text-darkblue size-2 fw-semibold">Chats</h4>

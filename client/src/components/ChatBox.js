@@ -12,7 +12,7 @@ function ChatBox() {
 
     useEffect(() => {
         setOpenedChatId(chatId)
-        if(!chatPerson) {
+        if(!chatPerson?._id) {
             getChatMembers(chatId)
         }
 

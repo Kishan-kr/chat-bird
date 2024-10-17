@@ -11,7 +11,8 @@
 .App {
   margin: 0;
   background: linear-gradient(#F3F3FB, #FDFBFD);
-  min-height: 100vh;
+  height: 100vh;
+  overflow-y: auto;
 }
 
 .bg-transwhiten{
@@ -112,7 +113,7 @@
 
 .persons {
   margin: 0;
-  height: 70vh;
+  height: 67vh;
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
@@ -155,12 +156,12 @@
 }
 
 .chat-home {
-  height: 95vh;
+  height: 100%;
 }
 
 .chat-body {
   margin: 0;
-  height: 70vh;
+  height: 68vh;
   overflow-x: hidden;
   overflow-y: auto;
   display: flex;

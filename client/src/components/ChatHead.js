@@ -8,7 +8,7 @@ function ChatHead() {
   return (
     <div className="row header bg-lwhite py-2 px-3">
                 <div className="col-2 rounded-circle pic-container shadow-1">
-                    <img src={chatPerson.pic} alt=""
+                    <img src={chatPerson?.pic} alt=""
                         className='pic'
                     />
                 </div>

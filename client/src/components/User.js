@@ -62,8 +62,8 @@ function User() {
   };
 
   return (
-    <div className="row px-1">
-      <div ref={infoSide} className="infoSide shadow-1">
+    <div className="row mx-0 px-1 h-100">
+      <div ref={infoSide} className="infoSide shadow-1 h-100">
         <About infoSide={infoSide} socket={socket} />
       </div>
       <div className="col-3">

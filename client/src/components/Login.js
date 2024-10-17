@@ -6,6 +6,7 @@ function Login() {
 
     const {login, setLoggedIn, fetchUser} = useContext(AuthContext);
     const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
     const [credentials, setCredentials] = useState({ email: "", password: "" });
     const {email, password} = credentials;
     const navigate = useNavigate();
@@ -17,12 +18,14 @@ function Login() {
     const submitForm = async (e) => {
         e.preventDefault();
         // POST request using fetch
+        setLoading(true)
         let data = await login(email, password);
+        setLoading(false)
         if(data.success) {
             setLoggedIn(true);
             localStorage.setItem('token', data.token);
             await fetchUser(data.token);
-            navigate('/user', {replace: true});
+            navigate('/', {replace: true});
             setCredentials({email:"", password:""})
         }
         else if(data.serverError) {
@@ -63,8 +66,10 @@ function Login() {
                 </div>
                 <div className=" d-flex flex-column justify-content-center my-4 px-5 ">
                     <button type="submit" 
+                        disabled={loading}
                         className="shadow-2 btn py-2 w-100 my-2 border-0 size-4 text-white blue-grad">
-                            Login
+                            {loading ? <i className="fa fa-spinner fa-spin"></i> : "Login"}
+
                     </button>
                     <Link className='size-5 text-blue' to = "/signup">Don't have an account? Create one</Link>
                 </div>
