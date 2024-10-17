@@ -5,7 +5,6 @@ import { ChatContext } from '../context/ChatContext';
 
 function CreateNewChat() {
     const {searchUser} = useContext(AuthContext);
-    const {setChatPerson, openedChatId, setOpenedChatId} = useContext(ChatContext);
     const [keyword, setKeyword] = useState('');
     const [userList, setUserList] = useState([]);
 
@@ -83,7 +82,7 @@ function CreateNewChat() {
 }
 
 const Person = ({userData}) => {
-    const {openChat, chats, setChats, setChatPerson, openedChatId, setOpenedChatId} = useContext(ChatContext);
+    const {openChat, chats, setChats, setChatPerson, setOpenedChatId} = useContext(ChatContext);
     const {setAlert} = useContext(AuthContext);
     const navigate = useNavigate();
 

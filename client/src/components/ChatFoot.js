@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { MessageContext } from '../context/MessageContext';
 import { ChatContext } from '../context/ChatContext';
 import InputEmoji from "react-input-emoji";

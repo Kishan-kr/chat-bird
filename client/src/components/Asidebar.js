@@ -77,6 +77,7 @@ function Asidebar(props) {
                             lastMessage={chat.lastMessage?chat.lastMessage:""}
                         />
                     )
+                    return null
                 })
             }
             </div>

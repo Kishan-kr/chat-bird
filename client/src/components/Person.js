@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { ChatContext } from '../context/ChatContext';
 
 function Person(props) {
-  const {openedChatId, setOpenedChatId, setChatPerson } = useContext(ChatContext);
+  const {openedChatId, setChatPerson } = useContext(ChatContext);
   const {member, chatId, lastMessage} = props;
-  const [time, setTime] = useState('');
   const navigate = useNavigate();
   
   const formatTime = (timestamp) => {

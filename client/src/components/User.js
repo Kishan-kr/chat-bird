@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { ChatContext } from '../context/ChatContext';
 import { MessageContext } from '../context/MessageContext';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import Asidebar from './Asidebar';
 import About from './About';
 import CreateNewChat from './CreateNewChat';
@@ -32,7 +32,7 @@ function User() {
     return () => {
       socket?.disconnect();
     };
-  }, [backend, user, socket, setSocketConnected]);
+  }, [user, socket, setSocketConnected]);
 
   useEffect(() => {
     if (socket) {
