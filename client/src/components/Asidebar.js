@@ -34,7 +34,7 @@ function Asidebar(props) {
 
     return (
         <aside className='p-3 h-100'>
-            <div className='row px-1 my-2'>
+            <div className='row px-0 my-2'>
                 <div className="row">
                     <h4 className="col text-darkblue size-2 fw-semibold">Chats</h4>
                     <button className="col btn size-6 text-white blue-grad border-0"
@@ -44,7 +44,7 @@ function Asidebar(props) {
                 </div>
             </div>
 
-            <div className='row px-2 my-3'>
+            <div className='row px-2 pe-0 my-3'>
                 <div className="row">
                     <div className="input-group mb-3 mx-1 px-0 bg-white rounded-1 shadow-1">
                         <button className="btn border-0" 

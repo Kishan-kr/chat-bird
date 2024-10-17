@@ -50,14 +50,9 @@ function Person(props) {
     // more work...
   }
 
-  // useEffect(()=>{
-  //   formatTime();
-  //   // eslint-disable-next-line
-  // },[lastMessage])
-
   return (
     <div 
-      className={`my-2 me-2 px-2 rounded-2 text-gray bg-white shadow-1 person 
+      className={`my-2 me-0 px-2 rounded-2 text-gray bg-white shadow-1 person 
       ${chatId === openedChatId? 'border-gray': ''}`} 
       onClick={handlePerson} >
       <div className="row p-2">
@@ -68,7 +63,7 @@ function Person(props) {
         </div>
         <div className="col d-flex flex-column justify-content-center align-item-center ">
           <p className=" size-5 fw-semibold text-darkblue my-0">{member?.name}</p>
-          <p className=" size-7 text-blue my-0">{member?.email /* typing...*/}</p>
+          <p className=" size-7 text-blue my-0">{member?.email?.length > 25 ? member.email.slice(0, 22) + '...' : member?.email /* typing...*/}</p>
         </div>
         <p className="col-3 size-7 text-end px-1">{formatTime(lastMessage?.createdAt)}</p>
       </div>
