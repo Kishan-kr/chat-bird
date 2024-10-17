@@ -54,7 +54,7 @@ app.get('/', (req, res) => {
 const io = new Server(httpServer, {
   pingTimeout: 60000,
   cors: {
-    origin: 'http://localhost:3000',
+    origin: process.env.CLIENT_URL || 'http://localhost:3000',
   },
 });
 
